@@ -1,6 +1,6 @@
 ---
 - hosts: all
-  remote_user: oot
+  remote_user: root
   become: yes
   become_method: sudo
   become_user: root
