@@ -29,25 +29,7 @@
         - net.bridge.bridge-nf-call-iptables
         - net.bridge.bridge-nf-call-ip6tables
         - net.ipv4.ip_forward    
-    - name: install dependency and configure 
-      shell: |
-             sudo apt-get update && sudo apt-get install -y apt-transport-https curl
-             curl -s https://packages.cloud.google.com/apt/doc/apt-key.gpg | sudo apt-get add -
-    - name: create kubernetes repo file
-      file:
-        path: "/etc/apt/sources.list.d/kubernetes.list"
-        state: touch
-    - name: add k8s source 
-      blockinfile:
-        path: "/etc/apt/sources.list.d/kubernetes.list"
-        block: |
-              deb https://apt.kubernetes.io/ kubernetes-xenial main
-    - name: install kuerbetes
-      shell:
-        sudo apt-get update
-        sudo apt-get install -y kubelet kubeadm kubectl
-        sudo apt-mark hold kubelet kubeadm kubectl
-
+    
     - name: install container d as platform
       shell:
         sudo apt-get update && sudo apt-get install -y containerd
