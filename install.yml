@@ -3,6 +3,10 @@
 - 
 
   hosts: all
+  become: yes
+  become_method: sudo 
+  become_user: root 
+  connection: ssh
   tasks:
     - name: update ubuntu system 
       apt:
