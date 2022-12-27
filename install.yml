@@ -1,0 +1,30 @@
+---
+
+- 
+
+  hosts: all
+  tasks:
+    - name: upload the kernal module
+      modprobe:
+        name: "{{item}}"
+        state: present 
+      with_items:
+        - overlay
+        - br_netfilter
+    - name: Persistent kernal module loading
+      copy:
+        dest: '/etc/module-load.d/k8s.conf'
+        content:
+          br_netfilter
+          overlay 
+    - name: turn sysctl parameters in /proc 
+      sysctl:
+        name: ""{{items}}
+        value: '1'
+        sysctl_set: yes
+        state: present 
+      with_items:
+        - net.bridge.bridge-nf-call-iptables
+        - net.bridge.bridge-nf-call-ip6tables
+        - net.ipv4.ip_forward        
+     
