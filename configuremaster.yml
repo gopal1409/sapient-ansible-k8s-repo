@@ -1,0 +1,32 @@
+---
+- hosts: k8smaster
+  become: yes
+
+  tasks:
+    - name: intialized the cluster
+      shell: kubeadm init --pod-network-cidr=192.168.0.0/16
+      args:
+        chdir: $HOME
+        creates: cluster_intialized.txt
+    - name: create .kube directory
+      become: yes
+      file: 
+        path: $HOME/.kube
+        state: directory
+        mode: 0755
+    - name: copy admin config to kube config 
+      copy:
+        src: /etc/kubernetes/admin.conf
+        dest: $HOME/.kube/config
+        remote_src: yes 
+    - name: install pod network 
+      become: yes 
+      shell: kubectl create -f https://raw.githubusercontent.com/projectcalico/calico/v3.24.5/manifests/tigera-operator.yaml
+      args:
+        chdir: $HOME 
+    - name: get the token for joining worker node
+      become: yes 
+      shell: kubeadm token create --print-join-command
+      register: kubeadm_join_command
+    - debug:
+      msg: "{{kubeadm_join_command}}" 
