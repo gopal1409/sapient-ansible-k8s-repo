@@ -14,12 +14,7 @@
       with_items:
         - overlay
         - br_netfilter
-    - name: Persistent kernal module loading
-      copy:
-        dest: '/etc/module-load.d/k8s.conf'
-        content:
-          br_netfilter
-          overlay 
+    
     - name: turn sysctl parameters in /proc 
       sysctl:
         name: "{{items}}"
