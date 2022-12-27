@@ -19,7 +19,7 @@
           overlay 
     - name: turn sysctl parameters in /proc 
       sysctl:
-        name: ""{{items}}
+        name: "{{items}}"
         value: '1'
         sysctl_set: yes
         state: present 
