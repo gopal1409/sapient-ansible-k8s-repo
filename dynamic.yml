@@ -1,4 +1,4 @@
 plugin: aure.azcollection.azure_rm
+auth_source: cli
 include_vm_resource_groups:
   - k8s 
-auth_source: cli
