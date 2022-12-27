@@ -31,7 +31,7 @@
         - net.ipv4.ip_forward    
     - name: install dependency and configure 
       shell: |
-             sudo apt-get update && sudo apt-get install -y apt-transport-http curl
+             sudo apt-get update && sudo apt-get install -y apt-transport-https curl
              curl -s https://packages.cloud.google.com/apt/doc/apt-key.gpg | sudo apt-get add -
     - name: create kubernetes repo file
       file:
