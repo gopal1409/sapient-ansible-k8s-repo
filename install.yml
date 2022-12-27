@@ -34,6 +34,7 @@
         path: "/etc/apt/sources.list.d/kubernetes.list"
         state: touch
     - name: add k8s source 
+      blockinfile:
         path: "/etc/apt/sources.list.d/kubernetes.list"
         block: |
               deb https://apt.kubernetes.io/ kubernetes-xenial main
