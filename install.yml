@@ -17,7 +17,7 @@
     
     - name: turn sysctl parameters in /proc 
       sysctl:
-        name: "{{items}}"
+        name: "{{item}}"
         value: '1'
         sysctl_set: yes
         state: present 
